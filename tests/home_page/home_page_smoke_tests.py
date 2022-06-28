@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from helpers.assertion_helpers import assert_page_title
 
 
-class SmokeTests(unittest.TestCase):
+class HomePageSmokeTests(unittest.TestCase):
     """A class containing sample smoke tests for the site http://automationpractice.com/ """
 
     driver = None

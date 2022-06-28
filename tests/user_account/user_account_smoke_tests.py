@@ -7,7 +7,7 @@ from helpers.assertion_helpers import assert_page_title
 from helpers.functional_helpers import user_login
 
 
-class SmokeTests(unittest.TestCase):
+class UserAccountSmokeTests(unittest.TestCase):
     """A class containing sample smoke tests for the site http://automationpractice.com/ """
 
     driver = None
