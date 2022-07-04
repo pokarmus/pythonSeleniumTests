@@ -56,7 +56,7 @@ class CartSmokeTests(unittest.TestCase):
         t_shirts_button.click()
         product = driver.find_element(By.XPATH, product_exac_xpath)
         action = ActionChains(driver)
-        action.move_to_element(product)
+        action.move_to_element(product).perform()
         add_to_cart_button = driver.find_element(By.XPATH, add_to_cart_button_xpath)
         add_to_cart_button.click()
         proceed_button = visibility_of_element_wait(driver, proceed_button_xpath, 10)
