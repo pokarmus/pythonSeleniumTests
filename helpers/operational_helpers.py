@@ -17,7 +17,7 @@ def wait_for_elements(driver: WebDriver, xpath: str, max_seconds_to_wait=5, numb
     """
     for i in range(max_seconds_to_wait):
         elements = driver.find_elements(by=By.XPATH, value=xpath)
-        print(f'Total waiting: {i} sec.')
+        # print(f'Total waiting: {i} sec.')
         if len(elements) >= number_of_expected_elements:
             return elements
         if i == max_seconds_to_wait - 1:
