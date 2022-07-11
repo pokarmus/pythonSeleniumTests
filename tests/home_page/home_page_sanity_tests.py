@@ -57,7 +57,7 @@ class HomePageSanityTests(unittest.TestCase):
         driver = self.driver
         driver.set_window_size(950, 1000)
         driver.get(self.base_url)
-        slider = driver.find_element(By.XPATH, slider_xpath)
+        slider = visibility_of_element_wait(driver, slider_xpath)
         self.assertTrue(int(slider.get_attribute('clientWidth')) == expected_width_half_screen,
                         f'Slider size differ that expected for page {driver.current_url}')
         self.assertTrue(int(slider.get_attribute('clientHeight')) == expected_height_half_screen,
@@ -70,7 +70,7 @@ class HomePageSanityTests(unittest.TestCase):
         driver = self.driver
         driver.set_window_size(1900, 1000)
         driver.get(self.base_url)
-        slider = driver.find_element(By.XPATH, slider_xpath)
+        slider = visibility_of_element_wait(driver, slider_xpath)
         self.assertTrue(int(slider.get_attribute('clientWidth')) == expected_width_full_screen,
                         f'Slider size differ that expected for page {driver.current_url}')
         self.assertTrue(int(slider.get_attribute('clientHeight')) == expected_height_full_screen,
@@ -80,7 +80,7 @@ class HomePageSanityTests(unittest.TestCase):
         slider_xpath = '//ul[@id="homeslider"]'
         driver = self.driver
         driver.get(self.base_url)
-        slider = driver.find_element(By.XPATH, slider_xpath)
+        slider = visibility_of_element_wait(driver, slider_xpath)
         start_pos = slider.get_attribute('offsetLeft')
         time.sleep(4)
         end_pos = slider.get_attribute('offsetLeft')
@@ -91,8 +91,8 @@ class HomePageSanityTests(unittest.TestCase):
         slider_next_button_xpath = '//div[@id="homepage-slider"]//a[@class="bx-next"]'
         driver = self.driver
         driver.get(self.base_url)
-        slider = driver.find_element(By.XPATH, slider_xpath)
-        slider_next_button = driver.find_element(By.XPATH, slider_next_button_xpath)
+        slider = visibility_of_element_wait(driver, slider_xpath)
+        slider_next_button = visibility_of_element_wait(driver, slider_next_button_xpath)
         slider_next_button.click()
         time.sleep(1)
         start_pos = slider.get_attribute('offsetLeft')
@@ -106,8 +106,8 @@ class HomePageSanityTests(unittest.TestCase):
         slider_xpath = '//ul[@id="homeslider"]'
         driver = self.driver
         driver.get(self.base_url)
-        mouseover_slider = driver.find_element(By.XPATH, mouseover_slider_xpath)
-        slider = driver.find_element(By.XPATH, slider_xpath)
+        mouseover_slider = visibility_of_element_wait(driver, mouseover_slider_xpath)
+        slider = visibility_of_element_wait(driver, slider_xpath)
         action = ActionChains(driver)
         action.move_to_element(mouseover_slider).perform()
         time.sleep(1)
@@ -122,7 +122,7 @@ class HomePageSanityTests(unittest.TestCase):
         tile_xpath = '//div[@id="htmlcontent_home"]/ul/li[1]'
         driver = self.driver
         driver.get(self.base_url)
-        tile = driver.find_element(By.XPATH, tile_xpath)
+        tile = visibility_of_element_wait(driver, tile_xpath)
         tile_url = tile.find_element(By.XPATH, 'a')
         self.assertTrue(tile_url.get_attribute('href') == redirect_link, f'Wrong tile url for page '
                                                                          f'{driver.current_url}')
@@ -137,9 +137,9 @@ class HomePageSanityTests(unittest.TestCase):
         email_address = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(15)) + '@o2.pl'
         driver = self.driver
         driver.get(self.base_url)
-        newsletter_mail_input = driver.find_element(By.XPATH, newsletter_mail_input_xpath)
+        newsletter_mail_input = visibility_of_element_wait(driver, newsletter_mail_input_xpath)
         newsletter_mail_input.send_keys(email_address)
-        newsletter_input_button = driver.find_element(By.XPATH, newsletter_input_button_xpath)
+        newsletter_input_button = visibility_of_element_wait(driver, newsletter_input_button_xpath)
         newsletter_input_button.click()
         success_alert = visibility_of_element_wait(driver, success_alert_xpath, 4)
         self.assertTrue(success_alert.text == success_alert_text, f'Cant subscribe newsletter for page '

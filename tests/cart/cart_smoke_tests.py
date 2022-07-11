@@ -32,9 +32,9 @@ class CartSmokeTests(unittest.TestCase):
         product_table_xpath = '//table[@id="cart_summary"]'
         driver = self.driver
         driver.get(self.base_url)
-        cart_button = driver.find_element(By.XPATH, cart_button_xpath)
+        cart_button = visibility_of_element_wait(driver, cart_button_xpath)
         cart_button.click()
-        empty_cart_alert = driver.find_element(By.XPATH, empty_cart_alert_xpath)
+        empty_cart_alert = visibility_of_element_wait(driver, empty_cart_alert_xpath)
         try:
             driver.find_element(By.XPATH, product_table_xpath)
             raise Exception(f'Product table visible in empty cart for page {driver.current_url}')
@@ -52,16 +52,16 @@ class CartSmokeTests(unittest.TestCase):
         product_in_cart_xpath = f'//tr//a[text()="{product_name}"]'
         driver = self.driver
         driver.get(self.base_url)
-        t_shirts_button = driver.find_element(By.XPATH, t_shirts_button_xpath)
+        t_shirts_button = visibility_of_element_wait(driver, t_shirts_button_xpath)
         t_shirts_button.click()
-        product = driver.find_element(By.XPATH, product_exac_xpath)
+        product = visibility_of_element_wait(driver, product_exac_xpath)
         action = ActionChains(driver)
         action.move_to_element(product).perform()
-        add_to_cart_button = driver.find_element(By.XPATH, add_to_cart_button_xpath)
+        add_to_cart_button = visibility_of_element_wait(driver, add_to_cart_button_xpath)
         add_to_cart_button.click()
         proceed_button = visibility_of_element_wait(driver, proceed_button_xpath, 10)
         proceed_button.click()
-        product_in_cart = driver.find_element(By.XPATH, product_in_cart_xpath)
+        product_in_cart = visibility_of_element_wait(driver, product_in_cart_xpath)
         self.assertTrue(product_in_cart.is_displayed(), f'Product arent visible in cart for page {driver.current_url}')
 
     @classmethod

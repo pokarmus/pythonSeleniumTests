@@ -28,7 +28,7 @@ def wait_for_elements(driver: WebDriver, xpath: str, max_seconds_to_wait=5, numb
         time.sleep(1)
 
 
-def visibility_of_element_wait(driver, xpath: str, timeout=1) -> WebElement:
+def visibility_of_element_wait(driver, xpath: str, timeout=10) -> WebElement:
     """Checking every 0.5 second if element specified by xpath is visible on page
 
     :param driver: WebDriver instance

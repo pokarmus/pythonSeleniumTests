@@ -1,10 +1,10 @@
 import unittest
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.common.by import By
 
 from helpers.assertion_helpers import assert_page_title
 from helpers.functional_helpers import user_login
+from helpers.operational_helpers import visibility_of_element_wait
 
 
 class UserAccountSmokeTests(unittest.TestCase):
@@ -28,8 +28,8 @@ class UserAccountSmokeTests(unittest.TestCase):
         login_form_xpath = '//form[@id="login_form"]'
         driver = self.driver
         driver.get(self.login_url)
-        create_account_form = driver.find_element(By.XPATH, create_account_form_xpath)
-        login_form = driver.find_element(By.XPATH, login_form_xpath)
+        create_account_form = visibility_of_element_wait(driver, create_account_form_xpath)
+        login_form = visibility_of_element_wait(driver, login_form_xpath)
         self.assertTrue(create_account_form.is_displayed(), f'No registration form displayed for page {driver.current_url}')
         self.assertTrue(login_form.is_displayed(), f'No login form displayed for page {driver.current_url}')
 
@@ -37,7 +37,7 @@ class UserAccountSmokeTests(unittest.TestCase):
         sign_in_button_xpath = '//a[@class="login"]'
         driver = self.driver
         driver.get(self.base_url)
-        sign_in_button = driver.find_element(By.XPATH, sign_in_button_xpath)
+        sign_in_button = visibility_of_element_wait(driver, sign_in_button_xpath)
         self.assertTrue(sign_in_button.text == 'Sign in')
 
     def test_user_can_log_in_with_correct_user_and_password(self):
@@ -48,8 +48,8 @@ class UserAccountSmokeTests(unittest.TestCase):
         user_personal_information_button_xpath = '//i[@class="icon-user"]/../span'
         driver = self.driver
         user_login(driver, user_email, user_password)
-        user_name_field = driver.find_element(By.XPATH, user_name_field_xpath)
-        user_personal_information_button = driver.find_element(By.XPATH, user_personal_information_button_xpath)
+        user_name_field = visibility_of_element_wait(driver, user_name_field_xpath)
+        user_personal_information_button = visibility_of_element_wait(driver, user_personal_information_button_xpath)
         self.assertTrue(user_name_field.text == user_name
                         and str.upper(user_personal_information_button.text) == str.upper('My personal information'),
                         f'Cant login with correct user/password for page {driver.current_url}')

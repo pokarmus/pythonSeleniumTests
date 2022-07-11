@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 from helpers.assertion_helpers import assert_page_title
+from helpers.operational_helpers import visibility_of_element_wait
 
 
 class HomePageSmokeTests(unittest.TestCase):
@@ -26,14 +27,14 @@ class HomePageSmokeTests(unittest.TestCase):
         baner_xpath = '//header[@id="header"]//img[@class="img-responsive"]'
         driver = self.driver
         driver.get(self.base_url)
-        banner = driver.find_element(By.XPATH, baner_xpath)
+        banner = visibility_of_element_wait(driver, baner_xpath)
         self.assertTrue(banner.is_displayed(), f'Header banner not visible for url {driver.current_url}')
 
     def test_shop_logo_is_visible(self):
         logo_xpath = '//div[@id="header_logo"]//img[contains(@class, "logo")]'
         driver = self.driver
         driver.get(self.base_url)
-        logo = driver.find_element(By.XPATH, logo_xpath)
+        logo = visibility_of_element_wait(driver, logo_xpath)
         self.assertTrue(logo.is_displayed(), f'Logo not visible for url {driver.current_url}')
 
     def test_home_page_slider_contains_exact_elements_number(self):
@@ -63,9 +64,9 @@ class HomePageSmokeTests(unittest.TestCase):
         elements_number = 5
         driver = self.driver
         driver.get(self.base_url)
-        list = driver.find_elements(By.XPATH, list_xpath)
+        elements = driver.find_elements(By.XPATH, list_xpath)
         counter = 0
-        for element in list:
+        for element in elements:
             if element.is_displayed():
                 counter += 1
         self.assertTrue(counter == elements_number, f'Page contains different number of bottom elements that expected '
@@ -76,7 +77,7 @@ class HomePageSmokeTests(unittest.TestCase):
         search_result_list_xpath = '//div[@id="center_column"]/ul/li'
         driver = self.driver
         driver.get(self.base_url)
-        searchbar = driver.find_element(By.XPATH, searchbar_xpath)
+        searchbar = visibility_of_element_wait(driver, searchbar_xpath)
         searchbar.send_keys('dress')
         searchbar.send_keys(Keys.RETURN)
         search_result_list = driver.find_elements(By.XPATH, search_result_list_xpath)

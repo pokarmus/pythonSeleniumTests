@@ -1,6 +1,5 @@
 import random
 import string
-import time
 import unittest
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -63,31 +62,31 @@ class UserAccountSanityTests(unittest.TestCase):
 
         driver = self.driver
         driver.get(self.login_url)
-        email_create_input_field = driver.find_element(By.XPATH, email_create_input_field_xpath)
+        email_create_input_field = visibility_of_element_wait(driver, email_create_input_field_xpath)
         email_create_input_field.send_keys(self.email_address)
-        email_create_button = driver.find_element(By.XPATH, email_create_button_xpath)
+        email_create_button = visibility_of_element_wait(driver, email_create_button_xpath)
         email_create_button.click()
         form_gender_male = visibility_of_element_wait(driver, form_gender_male_xpath, 10)
         form_gender_male.click()
-        driver.find_element(By.XPATH, input_firstname_xpath).send_keys(self.first_name)
-        driver.find_element(By.XPATH, input_lastname_xpath).send_keys(self.last_name)
-        input_email = driver.find_element(By.XPATH, input_email_xpath)
-        driver.find_element(By.XPATH, input_password_xpath).send_keys(self.passwd)
-        input_address_firstname = driver.find_element(By.XPATH, input_address_firstname_xpath)
-        input_address_lastname = driver.find_element(By.XPATH, input_address_lastname_xpath)
-        driver.find_element(By.XPATH, input_address_address_xpath).send_keys(self.address_street)
-        driver.find_element(By.XPATH, input_address_city_xpath).send_keys(self.address_city)
+        visibility_of_element_wait(driver, input_firstname_xpath).send_keys(self.first_name)
+        visibility_of_element_wait(driver, input_lastname_xpath).send_keys(self.last_name)
+        input_email = visibility_of_element_wait(driver, input_email_xpath)
+        visibility_of_element_wait(driver, input_password_xpath).send_keys(self.passwd)
+        input_address_firstname = visibility_of_element_wait(driver, input_address_firstname_xpath)
+        input_address_lastname = visibility_of_element_wait(driver, input_address_lastname_xpath)
+        visibility_of_element_wait(driver, input_address_address_xpath).send_keys(self.address_street)
+        visibility_of_element_wait(driver, input_address_city_xpath).send_keys(self.address_city)
         form_state_selector = driver.find_element(By.XPATH, selector_address_state_xpath)
         form_state_selector_select = Select(form_state_selector)
         wait_for_elements(driver, selector_address_state_options_xpath, 5, 54)
         form_state_selector_select.select_by_visible_text(self.state)
-        driver.find_element(By.XPATH, input_address_zip_xpath).send_keys(self.zip_code)
+        visibility_of_element_wait(driver, input_address_zip_xpath).send_keys(self.zip_code)
         form_country_selector = driver.find_element(By.XPATH, selector_address_country_xpath)
         form_country_selector_select = Select(form_country_selector)
         wait_for_elements(driver, selector_address_country_options_xpath, 5, 2)
         form_country_selector_select.select_by_visible_text(self.country)
-        driver.find_element(By.XPATH, input_address_mobile_phone_xpath).send_keys(self.mobile_phone)
-        input_address_alias = driver.find_element(By.XPATH, input_address_alias_xpath)
+        visibility_of_element_wait(driver, input_address_mobile_phone_xpath).send_keys(self.mobile_phone)
+        input_address_alias = visibility_of_element_wait(driver, input_address_alias_xpath)
         input_address_alias.clear()
         input_address_alias.send_keys(self.address_alias)
 
@@ -98,8 +97,8 @@ class UserAccountSanityTests(unittest.TestCase):
         self.assertTrue(input_address_lastname.get_attribute('value') == self.last_name,
                         f'Wrong lastname in registration form (address) for page {driver.current_url}')
 
-        driver.find_element(By.XPATH, button_submit_xpath).click()
-        button_view_account = driver.find_element(By.XPATH, button_view_account_xpath)
+        visibility_of_element_wait(driver, button_submit_xpath).click()
+        button_view_account = visibility_of_element_wait(driver, button_view_account_xpath)
 
         self.assertTrue(self.first_name in button_view_account.text and self.last_name in button_view_account.text,
                         f'Wrong user personal data after registration for page {driver.current_url}')
@@ -119,18 +118,29 @@ class UserAccountSanityTests(unittest.TestCase):
         user_login(driver, user_email, user_password)
         visibility_of_element_wait(driver, button_my_address_xpath).click()
         visibility_of_element_wait(driver, button_update_xpath).click()
-        input_address_firstname = driver.find_element(By.XPATH, input_address_firstname_xpath)
+        input_address_firstname = visibility_of_element_wait(driver, input_address_firstname_xpath)
         old_firstname = input_address_firstname.get_attribute('value')
         input_address_firstname.clear()
         input_address_firstname.send_keys(f'{old_firstname} Test')
-        input_address_lastname = driver.find_element(By.XPATH, input_address_lastname_xpath)
+        input_address_lastname = visibility_of_element_wait(driver, input_address_lastname_xpath)
         old_lastname = input_address_lastname.get_attribute('value')
         input_address_lastname.clear()
         input_address_lastname.send_keys(f'{old_lastname} Test')
-        driver.find_element(By.XPATH, button_submit_xpath).click()
-        names = driver.find_element(By.XPATH, form_name_fields_xpath)
+        visibility_of_element_wait(driver, button_submit_xpath).click()
+        names = visibility_of_element_wait(driver, form_name_fields_xpath)
 
         self.assertTrue(f'{old_firstname} Test' in names.text and f'{old_lastname} Test' in names.text)
+
+        # restore previous data
+        visibility_of_element_wait(driver, button_update_xpath).click()
+        input_address_firstname = visibility_of_element_wait(driver, input_address_firstname_xpath)
+        input_address_firstname.clear()
+        input_address_firstname.send_keys(f'{old_firstname}')
+
+        input_address_lastname = visibility_of_element_wait(driver, input_address_lastname_xpath)
+        input_address_lastname.clear()
+        input_address_lastname.send_keys(f'{old_lastname}')
+        visibility_of_element_wait(driver, button_submit_xpath).click()
 
     @classmethod
     def tearDownClass(cls) -> None:
