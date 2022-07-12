@@ -43,7 +43,7 @@ def visibility_of_element_wait(driver, xpath: str, timeout=10) -> WebElement:
     return wait.until(element_located, timeout_message)
 
 
-def visibility_of_all_elements_wait(driver: WebDriver, xpath: str, timeout=10) -> WebElement:
+def visibility_of_all_elements_wait(driver: WebDriver, xpath: str, timeout=10) -> list[WebElement]:
     """Checking every 0.5 second if elements specified by xpath is visible on page
 
        :param driver: WebDriver instance
@@ -57,3 +57,15 @@ def visibility_of_all_elements_wait(driver: WebDriver, xpath: str, timeout=10) -
     elements_located = expected_conditions.visibility_of_all_elements_located(locator)
     wait = WebDriverWait(driver, timeout)
     return wait.until(elements_located, timeout_message)
+
+
+def wait_for_expected_element_value(driver: WebDriver, xpath: str, expected_value: str, max_seconds_to_wait=5):
+    value = None
+    for i in range(max_seconds_to_wait):
+        value = visibility_of_element_wait(driver, xpath).get_attribute('value')
+        if value == expected_value:
+            break
+        else:
+            time.sleep(0.5)
+    return value
+

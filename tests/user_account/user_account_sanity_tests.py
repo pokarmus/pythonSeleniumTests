@@ -11,7 +11,7 @@ from helpers.operational_helpers import visibility_of_element_wait, wait_for_ele
 
 
 class UserAccountSanityTests(unittest.TestCase):
-    """A class containing sample smoke tests for the site http://automationpractice.com/ """
+    """A class containing sample sanity tests for the site http://automationpractice.com/ """
 
     driver = None
 

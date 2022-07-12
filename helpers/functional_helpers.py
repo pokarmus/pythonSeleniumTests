@@ -1,6 +1,9 @@
-from selenium.common import NoSuchElementException
+from selenium.common import NoSuchElementException, TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+
+from helpers.operational_helpers import visibility_of_element_wait, visibility_of_all_elements_wait
 
 
 def user_login(driver, user_login: str, user_password: str) -> None:
@@ -35,5 +38,22 @@ def user_logout(driver: WebDriver) -> None:
     logout_button_xpath = '//a[@title="Log me out"]'
     try:
         driver.find_element(By.XPATH, logout_button_xpath).click()
+    except NoSuchElementException:
+        pass
+
+
+def remove_all_products_from_cart(driver: WebDriver):
+    cart_button_xpath = '//div[@class="shopping_cart"]/a'
+    cart_products_remove_button_xpath = '//div[@class="cart_block_list"]//span[@class="remove_link"]/a'
+    driver.get('http://automationpractice.com/')
+    action = ActionChains(driver)
+    cart_button = visibility_of_element_wait(driver, cart_button_xpath)
+    action.move_to_element(cart_button).perform()
+
+    try:
+        # cart_products_remove_button = visibility_of_all_elements_wait(driver, cart_products_remove_button_xpath)
+        cart_products_remove_button = driver.find_elements(By.XPATH, cart_products_remove_button_xpath)
+        for button in cart_products_remove_button:
+            button.click()
     except NoSuchElementException:
         pass
