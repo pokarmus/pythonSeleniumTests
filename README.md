@@ -1,3 +1,3 @@
 # pythonSeleniumTests
 
-Sample python project with Selenium tests. Include Smoke Test, Sanity Tests, E2E tests.
+Sample python project with Selenium tests. Include sample Smoke Test and Sanity Tests.

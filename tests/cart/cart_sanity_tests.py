@@ -1,10 +1,6 @@
-import time
 import unittest
-
-from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 from helpers.operational_helpers import visibility_of_element_wait, wait_for_expected_element_value
@@ -86,7 +82,6 @@ class CartSanityTests(unittest.TestCase):
 
         product_quantity = wait_for_expected_element_value(driver, quantity_field_xpath, '2')
         self.assertTrue(int(product_quantity) == 2)
-
 
     @classmethod
     def tearDownClass(cls) -> None:
