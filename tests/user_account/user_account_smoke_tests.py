@@ -14,7 +14,7 @@ class UserAccountSmokeTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        service = Service(r'C:\TestFiles\chromedriver_101.exe')
+        service = Service(r'C:\TestFiles\chromedriver_103.exe')
         cls.driver = WebDriver(service=service)
         cls.base_url = 'http://automationpractice.com/'
         cls.login_url = 'http://automationpractice.com/index.php?controller=authentication&back=my-account'
@@ -30,7 +30,8 @@ class UserAccountSmokeTests(unittest.TestCase):
         driver.get(self.login_url)
         create_account_form = visibility_of_element_wait(driver, create_account_form_xpath)
         login_form = visibility_of_element_wait(driver, login_form_xpath)
-        self.assertTrue(create_account_form.is_displayed(), f'No registration form displayed for page {driver.current_url}')
+        self.assertTrue(create_account_form.is_displayed(), f'No registration form displayed for page '
+                                                            '{driver.current_url}')
         self.assertTrue(login_form.is_displayed(), f'No login form displayed for page {driver.current_url}')
 
     def test_no_user_is_logged_in_after_entering_website(self):

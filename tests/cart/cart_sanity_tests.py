@@ -29,7 +29,8 @@ class CartSanityTests(unittest.TestCase):
         cart_button_xpath = '//div[@class="shopping_cart"]/a'
         product_image_xpath = f'//div[@class="cart_block_list"]//img[@alt="{product_name}"]'
         dresses_button_xpath = '//div[@id="block_top_menu"]/ul/li/a[text()="Dresses"]'
-        product_exac_xpath = f'//ul[contains(@class, "product_list")]//a[@title="{product_name}" and @class="product-name"]'
+        product_exac_xpath = f'//ul[contains(@class, "product_list")]//a[@title="{product_name}" and @class="product' \
+                             f'-name"] '
         add_to_cart_button_xpath = '//ul[contains(@class, "product_list")]/li[5]//a[contains(@title, "Add to cart")]'
         proceed_button_xpath = '//div[@id="layer_cart"]//a[@title="Proceed to checkout"]'
         product_in_cart_xpath = f'//tr//a[text()="{product_name}"]'
@@ -61,7 +62,8 @@ class CartSanityTests(unittest.TestCase):
         quantity_field_xpath = '//td[contains(@class,"cart_quantity")]/input[@type="text"]'
         quantity_rise_xpath = '//a[contains(@id,"cart_quantity_up")]'
         dresses_button_xpath = '//div[@id="block_top_menu"]/ul/li/a[text()="Dresses"]'
-        product_exac_xpath = f'//ul[contains(@class, "product_list")]//a[@title="{product_name}" and @class="product-name"]'
+        product_exac_xpath = f'//ul[contains(@class, "product_list")]//a[@title="{product_name}" and @class="product' \
+                             f'-name"] '
         add_to_cart_button_xpath = '//ul[contains(@class, "product_list")]/li[5]//a[contains(@title, "Add to cart")]'
         proceed_button_xpath = '//div[@id="layer_cart"]//a[@title="Proceed to checkout"]'
 

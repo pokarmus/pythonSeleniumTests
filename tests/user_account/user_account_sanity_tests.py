@@ -50,7 +50,7 @@ class UserAccountSanityTests(unittest.TestCase):
         input_address_address_xpath = '//input[@id="address1"]'
         input_address_city_xpath = '//input[@id="city"]'
         selector_address_state_xpath = '//select[@id="id_state"]'
-        selector_address_state_options_xpath = '//select[@id="id_state"]/option' # should contains 54 options
+        selector_address_state_options_xpath = '//select[@id="id_state"]/option'  # should contains 54 options
         input_address_zip_xpath = '//input[@id="postcode"]'
         selector_address_country_xpath = '//select[@id="id_country"]'
         selector_address_country_options_xpath = '//select[@id="id_country"]/option'  # should contains 2 options

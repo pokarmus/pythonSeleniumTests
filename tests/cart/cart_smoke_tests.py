@@ -41,12 +41,14 @@ class CartSmokeTests(unittest.TestCase):
         except NoSuchElementException:
             pass
 
-        self.assertTrue(empty_cart_alert.text == 'Your shopping cart is empty.', f'Shoping cart isnt empty for page {driver.current_url} ')
+        self.assertTrue(empty_cart_alert.text == 'Your shopping cart is empty.', f'Shoping cart isnt empty for page'
+                                                                                 '{driver.current_url} ')
 
     def test_product_is_visible_in_cart_after_being_added(self):
         product_name = 'Faded Short Sleeve T-shirts'
         t_shirts_button_xpath = '//div[@id="block_top_menu"]/ul/li/a[text()="T-shirts"]'
-        product_exac_xpath = f'//ul[contains(@class, "product_list")]//a[@title="{product_name}" and @class="product-name"]'
+        product_exac_xpath = f'//ul[contains(@class, "product_list")]//a[@title="{product_name}" and @class="product' \
+                             f'-name"] '
         add_to_cart_button_xpath = '//ul[contains(@class, "product_list")]/li[1]//a[contains(@title, "Add to cart")]'
         proceed_button_xpath = '//div[@id="layer_cart"]//a[@title="Proceed to checkout"]'
         product_in_cart_xpath = f'//tr//a[text()="{product_name}"]'
